@@ -1,11 +1,22 @@
 var
 	gulp = require('gulp'),
+	browserSync=require('browser-sync'),
 	concatCss = require('gulp-concat-css'),
 	minifyCSS = require('gulp-minify-css'),
 	notify = require("gulp-notify"),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
 	rename = require("gulp-rename");
+
+// запуск сервера
+gulp.task('server',function(){
+	browserSync({
+		port: 9000,
+		server: {
+			baseDir: 'src'
+		}
+	});
+});
 
 gulp.task('concat', function () {
 	gulp.src('./_dev/_styles/**/*.css')
@@ -57,5 +68,6 @@ gulp.task('watch', function(){
 	gulp.watch('_dev/_scripts/_plugins/*.js', ['coffee-plugins', 'uglify-plugins']);
 });
 
+gulp.task('default',['server', 'watch']);
 
 
